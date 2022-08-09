@@ -66,11 +66,11 @@ const streamToFirehose = async (arrayOfRecords) => {
         eachBatch: async ({ batch, resolveOffset, isRunning, isStale }) => {
 
             const start = new Date();
-            console.log({
-                topic: batch?.topic,
-                partition: batch?.partition,
-                lastCommittedOffset: batch?.highWatermark,
-            })
+            // console.log({
+            //     topic: batch?.topic,
+            //     partition: batch?.partition,
+            //     lastCommittedOffset: batch?.highWatermark,
+            // })
 
             for (let message of batch.messages) {
                 if (!isRunning() || isStale())
@@ -80,6 +80,7 @@ const streamToFirehose = async (arrayOfRecords) => {
                     console.log("pushing to firehose");
                     await streamToFirehose(arrayOfRecords);
                     console.log("pushed to firehose");
+                    console.log(message.offset)
                     arrayOfRecords = [];
                 }
 
@@ -87,7 +88,7 @@ const streamToFirehose = async (arrayOfRecords) => {
                 // console.log("resolving offset", new Date() - start);
                 resolveOffset(message.offset);
                 // console.log("done resolving offset", new Date() - start);
-                console.log(message.offset)
+        
                 //await heartbeat();
             }
 
