@@ -30,15 +30,17 @@ const streamToFirehose = async (arrayOfRecords) => {
 
     const firehouse = new Firehose();
 
-    firehouse.putRecordBatch(params, function (err, data) {
-        if (err) {
-            console.error("couldn't stream", err.stack);
-            throw err
-        }
-        else {
-            console.log("INFO - successfully send stream", data);
-            return;
-        }
+    return new Promise((resolve, reject) => {
+        firehouse.putRecordBatch(params, function (err, data) {
+            if (err) {
+                console.error("couldn't stream", err.stack);
+                reject(err)
+            }
+            else {
+                console.log("INFO - successfully send stream");
+                resolve(data)
+            }
+        });
     });
 
 }
@@ -88,7 +90,7 @@ const streamToFirehose = async (arrayOfRecords) => {
                 // console.log("resolving offset", new Date() - start);
                 resolveOffset(message.offset);
                 // console.log("done resolving offset", new Date() - start);
-        
+
                 //await heartbeat();
             }
 
