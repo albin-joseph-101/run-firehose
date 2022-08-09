@@ -1,0 +1,30 @@
+{
+    "extends": [
+        "prettier",
+        "eslint:recommended"
+        // "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "no-unused-vars": [
+            "warn",
+            {
+                "args": "none"
+            }
+        ],
+        "no-console":"off"
+    }
+}
