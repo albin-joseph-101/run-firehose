@@ -24,7 +24,7 @@ console.log({
 const streamToFirehose = async (arrayOfRecords) => {
 
     var params = {
-        Record: arrayOfRecords,
+        Records: arrayOfRecords,
         DeliveryStreamName: "iot-stream-data-backup"
     };
 
