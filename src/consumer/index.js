@@ -2,7 +2,7 @@ import { config, Firehose } from 'aws-sdk'
 import path from 'path';
 const { Kafka } = require('kafkajs');
 
-import configPath from "../database/config/config"
+import configPath from "../config/config"
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const env = process.env.NODE_ENV || 'development';
@@ -55,7 +55,7 @@ const streamToFirehose = async (arrayOfRecords) => {
         ssl: true
     });
 
-    const consumer = kafka.consumer({ groupId: 'iot-data-backup' })
+    const consumer = kafka.consumer({ groupId: configValues.consumerGroup })
 
     await consumer.connect()
     let arrayOfRecords = [];
