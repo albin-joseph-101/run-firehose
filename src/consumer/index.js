@@ -77,7 +77,7 @@ const streamToFirehose = async (arrayOfRecords) => {
             for (let message of batch.messages) {
                 if (!isRunning() || isStale())
                     break;
-                arrayOfRecords.push({ Data: JSON.stringify(message) });
+                arrayOfRecords.push({ Data: Buffer.from(JSON.stringify(message)) });
                 if (arrayOfRecords.length === 500) {
                     console.log("pushing to firehose");
                     await streamToFirehose(arrayOfRecords);
